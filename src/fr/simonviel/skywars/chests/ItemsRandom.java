@@ -25,11 +25,13 @@ public class ItemsRandom {
 
 	private Map<Integer, Integer> levels = new HashMap<>();
 	private Map<String, Integer> chanceSection = new HashMap<>();
+	List<List<String>> sectionsDone;
 	
 	
 	public ItemsRandom(main main){
 		this.fileManager = main.getFileManager();
 		this.skyChestsYML = fileManager.getSkyChestsYML();
+		getFinalItemStacks();
 	}
 	
 
@@ -39,18 +41,13 @@ public class ItemsRandom {
 		loadChanceSections();
 		
 		List<ItemStack> finalItemsStacks = new ArrayList<>();
-		List<List<String>> sectionsDone = new ArrayList<>();
+		
 		int maxChestItem = skyChestsYML.getInt("max-item-per-chest");
 		
 		List<String> randomBrutItems = null;
-		
+		sectionsDone = new ArrayList<>();
 		while(finalItemsStacks.size() != maxChestItem) {
 			randomBrutItems = getRandomSection();
-			while(sectionsDone.contains(randomBrutItems)) {
-				randomBrutItems = getRandomSection();
-			}
-			sectionsDone.add(randomBrutItems);
-			
 			boolean added = false;
 			while(!added) {
 				for(String brutItem : randomBrutItems) {
@@ -92,12 +89,11 @@ public class ItemsRandom {
 			double pourcentage = Math.random() * 100;
 			// System.out.println("tentative avec "+randomSection);
 		    // System.out.println("cad avec "+chanceSection.get(randomSection)+"% de chance");
-			if(pourcentage < chanceSection.get(randomSection)) {
+			if(pourcentage < chanceSection.get(randomSection) && !sectionsDone.contains(itemsSection.getStringList(randomSection))) {
 				brutItemsList = itemsSection.getStringList(randomSection);
 			}
 		}
-		
-//		System.out.println(brutItemsList);
+		sectionsDone.add(brutItemsList);
 		
 		return brutItemsList;
 		
