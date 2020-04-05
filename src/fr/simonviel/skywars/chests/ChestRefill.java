@@ -34,14 +34,14 @@ public class ChestRefill {
 					List <Integer> slots = new ArrayList<>();
 					Random r = new Random();
 					
-//					for(ItemStack it : itemsRandom.getFinalItemStacks()) {
-//						int slot = r.nextInt(inv.getSize());
-//						while(slots.contains(slot)) {
-//							slot = r.nextInt(inv.getSize());
-//						}
-//						slots.add(slot);
-//						inv.setItem(slot, it);
-//					}		
+					for(ItemStack it : itemsRandom.getFinalItemStacks()) {
+						int slot = r.nextInt(inv.getSize());
+						while(slots.contains(slot)) {
+							slot = r.nextInt(inv.getSize());
+						}
+						slots.add(slot);
+						inv.setItem(slot, it);
+					}		
 				}
 			}
 		}

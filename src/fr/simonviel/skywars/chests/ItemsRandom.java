@@ -25,13 +25,15 @@ public class ItemsRandom {
 
 	private Map<Integer, Integer> levels = new HashMap<>();
 	private Map<String, Integer> chanceSection = new HashMap<>();
+	
+	//littles random variables
 	List<List<String>> sectionsDone;
+	int howmanyAutres;
 	
 	
 	public ItemsRandom(main main){
 		this.fileManager = main.getFileManager();
 		this.skyChestsYML = fileManager.getSkyChestsYML();
-		getFinalItemStacks();
 	}
 	
 
@@ -46,6 +48,8 @@ public class ItemsRandom {
 		
 		List<String> randomBrutItems = null;
 		sectionsDone = new ArrayList<>();
+		howmanyAutres = 0;
+		
 		while(finalItemsStacks.size() != maxChestItem) {
 			randomBrutItems = getRandomSection();
 			boolean added = false;
@@ -79,11 +83,11 @@ public class ItemsRandom {
 		for(String section : itemsSection.getKeys(false)) {
 			sectionList.add(section);
 		}
-		
+		String randomSection = null;
 		while(brutItemsList == null) {
 			// get one of that section
 			Random random = new Random();
-			String randomSection = sectionList.get(random.nextInt(sectionList.size()));
+			randomSection = sectionList.get(random.nextInt(sectionList.size()));
 		
 			// regarding to chance
 			double pourcentage = Math.random() * 100;
@@ -91,9 +95,17 @@ public class ItemsRandom {
 		    // System.out.println("cad avec "+chanceSection.get(randomSection)+"% de chance");
 			if(pourcentage < chanceSection.get(randomSection) && !sectionsDone.contains(itemsSection.getStringList(randomSection))) {
 				brutItemsList = itemsSection.getStringList(randomSection);
+				if(randomSection.equals("autres")) howmanyAutres++;
 			}
 		}
-		sectionsDone.add(brutItemsList);
+		
+		if(!randomSection.equals("autres")) {
+			sectionsDone.add(brutItemsList);
+		}
+		else {
+			if(howmanyAutres >= 2) sectionsDone.add(brutItemsList);
+		}
+	
 		
 		return brutItemsList;
 		
