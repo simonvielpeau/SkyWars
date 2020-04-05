@@ -1,0 +1,13 @@
+params:
+  wait:
+    size-to-begin: 1
+    max-size: 5
+    initial-timer: 15
+  game:
+    chrono-cage: 5
+localisations:
+  hub:
+  skywars-cage:
+  -
+  -
+  -

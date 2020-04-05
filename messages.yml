@@ -1,0 +1,25 @@
+messages:
+  prefix: "&6[&eSkyWars&6]"
+  wait:
+    join: "&b%player% &evient de rejoindre la partie. &7<&c%size%&7/&c%maxsize%&7>"
+    quit: "&c%player% &evient de quitter la partie. &7<&c%size%&7/&c%maxsize%&7>"
+    timer-message: "&eLe jeu commence dans &c%timer% &esecondes."
+    stop-timer: "&cIl n'y a plus assez de joueurs pour commencer. &7<&c%size%&7/&c%maxsize%&7>"
+    already-begun: "&cDésolé ! Le jeu a déjà commencé."
+    toomuch-players: "&cDésolé ! Il y a déjà trop de joueurs connectés."
+  game:
+    timer-disparition-cage: "§6Disparition des cages dans &c%timer% &6secondes"
+  commands:
+    set:
+      success: "&aCet emplacement a bien été enregistré."
+      success-cage: "&aCette nouvelle cage a bien été enregistrée."
+      help: 
+      - "&aPour ajouter un emplacement quelconque - §e/set <locationName>&a."
+      - "&aPour ajouter une cage skywars - &e/set skywars addcage"
+titles:
+  wait:
+    join: "&eSkyWars;&cBienvenue"
+    timer: "&c%timer%s;&ePréparez-vous !"
+    go: "&eTéléportation...;&cTous à vos cages !"
+  game:
+    disparition-cage: "&eDisparition cages...;&aBonne chance !"

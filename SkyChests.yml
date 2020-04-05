@@ -1,0 +1,73 @@
+max-item-per-chest: 7
+levels:
+  level-1: 30
+  level-2: 25
+  level-3: 20
+  level-4: 15
+  level-5: 10
+chances:
+  casque: 40
+  plastron: 30
+  jambes: 30
+  pieds: 30
+  epee: 50
+  boufs: 80
+  armes: 30
+  autres: 100
+items:
+  casque:
+    - LEATHER_HELMET-1
+    - GOLD_HELMET-3
+    - IRON_HELMET-2
+    - CHAINMAIL_HELMET-2
+    - DIAMOND_HELMET-5
+  plastron:
+    - LEATHER_CHESTPLATE-1
+    - GOLD_CHESTPLATE-3
+    - IRON_CHESTPLATE-2
+    - CHAINMAIL_CHESTPLATE-2
+    - DIAMOND_CHESTPLATE-5
+  jambes:
+    - LEATHER_LEGGINGS-1
+    - GOLD_LEGGINGS-3
+    - IRON_LEGGINGS-2
+    - CHAINMAIL_LEGGINGS-2
+    - DIAMOND_LEGGINGS-5
+  pieds:
+    - LEATHER_BOOTS-1
+    - GOLD_BOOTS-3
+    - IRON_BOOTS-2
+    - CHAINMAIL_BOOTS-2
+    - DIAMOND_BOOTS-5
+  epee:
+    - WOOD_SWORD-1
+    - GOLD_SWORD-3
+    - IRON_SWORD-2
+    - DIAMOND_SWORD,DAMAGE_ALL,1-5
+  boufs:
+    - RAW_BEEF:4-1
+    - RAW_CHICKEN:4-1
+    - RAW_FISH:3-1
+    - APPLE:3-2
+    - COOKED_BEEF:2-3
+    - COOKED_CHICKEN:2-3
+    - MELON_BLOCK:4-3
+    - CAKE:2-4
+  armes:
+    - BOW-4
+  autres:
+    - ARROW:7-3
+    - ENDER_PEARL:2-3
+    - GOLDEN_APPLE:2-3
+    - FLINT_AND_STEEL-3
+   
+
+
+
+
+
+
+    
+    
+
+

@@ -1,0 +1,8 @@
+name: SkyWars
+version: 1.0
+author: simonviel
+main: fr.simonviel.skywars.main
+commands:
+  set:
+    description: permet de sauvegarder en configuration un emplacement.
+    permission: admin.set
