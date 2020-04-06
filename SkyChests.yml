@@ -13,7 +13,7 @@ chances:
   epee: 50
   boufs: 80
   armes: 30
-  autres: 50
+  autres: 40
 items:
   casque:
     - LEATHER_HELMET-1
