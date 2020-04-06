@@ -2,9 +2,10 @@ params:
   wait:
     size-to-begin: 1
     max-size: 5
-    initial-timer: 15
+    initial-timer: 30
   game:
     chrono-cage: 5
+    refill-chest-timer: 180
 localisations:
   hub:
   skywars-cage:

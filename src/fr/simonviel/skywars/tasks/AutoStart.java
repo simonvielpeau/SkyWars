@@ -54,7 +54,7 @@ public class AutoStart extends BukkitRunnable{
 			stateManager.setState(GameState.PREGAME);
 			main.getCageLocations().TeleportPlayers(main.getPlayers());
 			
-			GameManager gameManager = new GameManager(main);
+			PreGameManager gameManager = new PreGameManager(main);
 			gameManager.runTaskTimer(main, 0, 20);
 		}
 		

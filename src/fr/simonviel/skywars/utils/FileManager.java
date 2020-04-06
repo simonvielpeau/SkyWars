@@ -157,6 +157,10 @@ public class FileManager {
 		if(cible == null) return;
 		if(timer != -1) string = string.replace("%timer%", timer+"");
 		String[] array = string.split(";");
+		if(array.length == 1) {
+			title.sendTitle(cible, array[0], "", 20);
+			return;
+		}
 		if(array.length != 2) return;
 		title.sendTitle(cible, array[0], array[1], 20);
 	}

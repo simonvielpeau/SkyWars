@@ -1,50 +1,48 @@
 package fr.simonviel.skywars.tasks;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import fr.simonviel.skywars.main;
-import fr.simonviel.skywars.game.GameState;
 import fr.simonviel.skywars.utils.FileManager;
 
-public class GameManager extends BukkitRunnable {
-
+public class GameManager extends BukkitRunnable{
+	
+	private FileConfiguration skyConfigYML;
+	private FileManager fileManager;
 	private int timer;
 	private main main;
-	private FileManager fileManager;
 
 	public GameManager(main main) {
+		fileManager = main.getFileManager();
+		skyConfigYML = fileManager.getSkyConfigYML();
 		this.main = main;
-		this.fileManager = main.getFileManager();
-		this.timer = fileManager.getSkyConfigYML().getInt("params.game.chrono-cage");
+		this.timer = skyConfigYML.getInt("params.game.refill-chest-timer");
 	}
-
 	
 	@Override
 	public void run() {
-		if(timer == fileManager.getSkyConfigYML().getInt("params.game.chrono-cage")) {
-			for(Player player : main.getPlayers()) {
-				player.sendMessage(fileManager.getLine("messages.game.timer-disparition-cage", null, timer, -1));
-			}
-		}
-	
-		for(Player player : main.getPlayers()) {
-			player.setLevel(timer);
-		}
+		
+		
 		
 		if(timer == 0) {
 			
-			for(Player player : main.getPlayers()) {
-				fileManager.sendTitle(player, "titles.game.disparition-cage", -1);
-				player.setLevel(0);
+			main.getChestRefill().refillAllChests();
+
+			for(Player players : main.getPlayers()) {
+				
+				fileManager.sendTitle(players, "titles.game.chests-refilled", -1);
+				
 			}
-			main.getStateManager().setState(GameState.GAME);
-			main.getCageManager().destroyAllCages();
-			cancel();
+			
+			timer = skyConfigYML.getInt("params.game.refill-chest-timer");
 		}
+		
+		
 		timer--;
 	}
-
-
 	
+	
+
 }
