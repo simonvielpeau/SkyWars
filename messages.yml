@@ -8,13 +8,19 @@ messages:
     already-begun: "&cDésolé ! Le jeu a déjà commencé."
     toomuch-players: "&cDésolé ! Il y a déjà trop de joueurs connectés."
   game:
-    timer-disparition-cage: "§6Disparition des cages dans &c%timer% &6secondes"
+    timer-disparition-cage: "&6Disparition des cages dans &c%timer% &6secondes"
+    death:
+      pvp: "&e%player%&c a été tué par &e%killer% &c!"
+      chute:
+        alone: "&e%player%&c est mort en tombant !"
+        killed: "&e%player%&c est mort en ayant été poussé par &e%killer% &c!"
+      alone: "&e%player%&c est mort !"
   commands:
     set:
       success: "&aCet emplacement a bien été enregistré."
       success-cage: "&aCette nouvelle cage a bien été enregistrée."
       help: 
-      - "&aPour ajouter un emplacement quelconque - §e/set <locationName>&a."
+      - "&aPour ajouter un emplacement quelconque - &e/set <locationName>&a."
       - "&aPour ajouter une cage skywars - &e/set skywars addcage"
 titles:
   wait:
@@ -23,4 +29,5 @@ titles:
     go: "&eTéléportation...;&cTous à vos cages !"
   game:
     disparition-cage: "&eDisparition cages...;&aBonne chance !"
-    chests-refilled: "§eCoffres remplis...;&cAllez-y !"
+    chests-refilled: "&eCoffres remplis...;&cAllez-y !"
+    death: "&cGame Over;&eGG tout de même !"

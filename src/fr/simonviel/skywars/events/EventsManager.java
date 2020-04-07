@@ -18,6 +18,7 @@ public class EventsManager {
 		PluginManager pm = Bukkit.getPluginManager();
 		pm.registerEvents(new SkyJoin(main), main);
 		pm.registerEvents(new GameListeners(main), main);
+		pm.registerEvents(new SkyDeath(main), main);
 	}
 	
 	

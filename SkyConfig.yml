@@ -6,6 +6,7 @@ params:
   game:
     chrono-cage: 5
     refill-chest-timer: 180
+    y-fall: 1
 localisations:
   hub:
   skywars-cage:
