@@ -7,6 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import fr.simonviel.skywars.main;
 
@@ -20,6 +22,24 @@ public class CageManager {
 	
 	public void destroyAllCages() {
 		setCaseBlocks(Material.AIR);
+		
+		new BukkitRunnable() {
+
+			int timer = 2*2;
+			@SuppressWarnings("deprecation")
+			@Override
+			public void run() {
+				timer--;
+				for(Player pls : main.getPlayers()) {
+					pls.setHealth(pls.getMaxHealth());
+				}
+				if(timer == 0) {
+					cancel();
+				}
+			}
+			
+			
+		}.runTaskTimer(main, 0, 10);
 	}
 	
 	public void cageInitializer() {

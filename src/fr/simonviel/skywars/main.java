@@ -15,6 +15,7 @@ import fr.simonviel.skywars.commands.CommandSet;
 import fr.simonviel.skywars.events.EventsManager;
 import fr.simonviel.skywars.game.GameState;
 import fr.simonviel.skywars.game.GameStateManager;
+import fr.simonviel.skywars.game.SkyWin;
 import fr.simonviel.skywars.utils.CageLocations;
 import fr.simonviel.skywars.utils.CageManager;
 import fr.simonviel.skywars.utils.FileManager;
@@ -31,6 +32,7 @@ public class main extends JavaPlugin{
 	private ItemsRandom itemsRandom;
 	private int beforeMaxSize = 0;
 	private ArrayList<Player> players = new ArrayList<>();
+	private SkyWin skyWin;
 	
 	@Override
 	public void onEnable() {
@@ -43,6 +45,7 @@ public class main extends JavaPlugin{
 		cageManager = new CageManager(this);
 		itemsRandom = new ItemsRandom(this);
 		chestRefill = new ChestRefill(this);
+		skyWin = new SkyWin(this);
 		
 		if(!cageLocations.enoughMinimumCages()) {
 			System.out.println("Le nombre de cage est inférieur au nombre de joueurs minimum pour lancer le jeu");
@@ -130,8 +133,11 @@ public class main extends JavaPlugin{
 	public ItemsRandom getItemsRandom() {
 		return itemsRandom;
 	}
-
 	
+	public void checkWin() {
+		skyWin.checkWin();
+	}
+
 	
 	
 }

@@ -15,19 +15,27 @@ messages:
         alone: "&e%player%&c est mort en tombant !"
         killed: "&e%player%&c est mort en ayant été poussé par &e%killer% &c!"
       alone: "&e%player%&c est mort !"
+  finished:
+    winner:
+    - "&7----------------- &aFin de la partie&7 -----------------"
+    - "&6[&eSkyWars&6] &eFélicitations à &b%player% &equi remporte cette partie !"
+    kick: "La partie est finie. Fermeture du serveur..."
+    timer-message: "&cFermeture du serveur dans &e%timer% secondes &c!"
   commands:
     set:
       success: "&aCet emplacement a bien été enregistré."
       success-cage: "&aCette nouvelle cage a bien été enregistrée."
       help: 
-      - "&aPour ajouter un emplacement quelconque - &e/set <locationName>&a."
-      - "&aPour ajouter une cage skywars - &e/set skywars addcage"
+      - "&6[&eSkyWars&6] &aPour ajouter un emplacement quelconque - &e/set <locationName>&a."
+      - "&6[&eSkyWars&6] &aPour ajouter une cage skywars - &e/set skywars addcage"
 titles:
   wait:
     join: "&eSkyWars;&cBienvenue"
     timer: "&c%timer%s;&ePréparez-vous !"
     go: "&eTéléportation...;&cTous à vos cages !"
   game:
-    disparition-cage: "&eDisparition cages...;&aBonne chance !"
+    disparition-cage: "&eDisparition cages...;&cBonne chance !"
     chests-refilled: "&eCoffres remplis...;&cAllez-y !"
     death: "&cGame Over;&eGG tout de même !"
+  finished:
+    youwon: "&bFélicitations !;&eTu gagnes cette partie."

@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import fr.simonviel.skywars.main;
+import fr.simonviel.skywars.game.GameState;
 import fr.simonviel.skywars.game.GameStateManager;
 import fr.simonviel.skywars.tasks.AutoStart;
 import fr.simonviel.skywars.utils.FileManager;
@@ -27,6 +28,7 @@ public class SkyJoin implements Listener{
 		this.stateManager = main.getStateManager();
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
 		
@@ -36,6 +38,9 @@ public class SkyJoin implements Listener{
 		player.teleport(fileManager.getConfigLoc("hub"));
 		player.getInventory().clear();
 		player.updateInventory();
+		player.setFoodLevel(20);
+		player.setHealth(player.getMaxHealth());
+		player.setExp((float) 0.0);
 		if(!canHeJoin(player)) return;
 		
 		if(!main.getPlayers().contains(player)) {
@@ -64,6 +69,9 @@ public class SkyJoin implements Listener{
 			e.setQuitMessage(null);
 			Bukkit.broadcastMessage(fileManager.getLine("messages.wait.quit", player, -1, main.getPlayers().size()));
 		}
+		
+		if(!main.getStateManager().isState(GameState.LOBBY))main.checkWin();
+		
 		
 	}
 	

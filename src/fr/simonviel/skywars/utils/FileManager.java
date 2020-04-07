@@ -119,6 +119,16 @@ public class FileManager {
 		return list;
 	}
 	
+	public List<String> getStringList(String path, Player player){
+		List<String> list = new ArrayList<>();
+		for(String strings : messageYML.getStringList(path)) {
+			strings = strings.replace("&", "§");
+			strings = strings.replace("%player%", player.getName());
+			list.add(strings);
+		}
+		return list;
+	}
+	
 
 	public void reloadMessages(){ setMessages(YamlConfiguration.loadConfiguration(this.messageFile)); }
 	

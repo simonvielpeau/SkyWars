@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import fr.simonviel.skywars.main;
+import fr.simonviel.skywars.game.GameState;
 import fr.simonviel.skywars.utils.FileManager;
 
 public class GameManager extends BukkitRunnable{
@@ -23,9 +24,7 @@ public class GameManager extends BukkitRunnable{
 	
 	@Override
 	public void run() {
-		
-		
-		
+		if(!main.getStateManager().isState(GameState.GAME)) cancel();
 		if(timer == 0) {
 			
 			main.getChestRefill().refillAllChests();
@@ -38,11 +37,7 @@ public class GameManager extends BukkitRunnable{
 			
 			timer = skyConfigYML.getInt("params.game.refill-chest-timer");
 		}
-		
-		
 		timer--;
 	}
-	
-	
 
 }
