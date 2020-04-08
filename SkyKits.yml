@@ -1,0 +1,81 @@
+kits:
+  archer:
+    cost: 100
+    totem: BOW
+    totem-name: "&eArcher"
+    totem-lore: 
+    - "&7Juste un arc"
+    items:
+      ARROW:
+        amount: 16
+      BOW:
+        amount: 1
+  sticker:
+    cost: 20
+    totem: STICK
+    totem-name: "&eSticker"
+    totem-lore: 
+    - "&4Knockback 3"
+    items:
+      STICK:
+        enchantments: 
+        - KNOCKBACK:3
+        name: "&bLe baton magique"
+        lore: 
+          - "&2Il pousse ton adversaire !"
+          - "&4Alors utilise-le pour le faire tomber."
+  alchimiste:
+    cost: 100
+    totem: POTION
+    totem-name: "&eAlchimiste"
+    totem-lore: 
+    - "&6Invisibilité,"
+    - "&6vitesse,"
+    - "&6poison,"
+    - "&6vie :"
+    - "&bQue demandez de plus ?"
+    items:
+      POTION:
+        amount: 2
+        effect: INVISIBILITY
+      POTION:
+        amount: 2
+        effect: SPEED
+      SPLASH_POTION:
+        amount: 2
+        effect: POISON
+      POTION:
+        amount: 3
+        effect: HEAL
+  guerrier:
+    permission: server.donor
+    totem: DIAMOND_SWORD
+    totem-name: "&eGuerrier"
+    totem-lore: 
+    - "&bOUF"
+    items:
+      DIAMOND_SWORD:
+#     chestplate:
+#       type: LEATHER_CHESTPLATE
+#       armor-color: CC7700
+#   super-guerrier:
+#     permission: server.donor
+#     totem: DIAMOND_HELMET
+#     description: "&4Rich server donors only."
+#     cost: 500
+#     helmet: {type: DIAMOND_HELMET}
+#     chestplate: {type: DIAMOND_CHESTPLATE, enchantments: {PROTECTION_PROJECTILE: 2}}
+#     leggings: {type: DIAMOND_LEGGINGS}
+#     boots: {type: DIAMOND_BOOTS, enchantments: {PROTECTION_FALL: 2}}
+inventory:
+  name: "&eKits"
+  default-totem-lore:
+  - "&e------------"
+  - "&bPrix : &c%cost%"
+  - "%booleanpermission% &cNécessite la permission &b%permission%"
+  - "&e------------"
+  item:
+    material: COMPASS
+    name: "&bKits"
+    lore:
+    - "&aChoisissez bien votre kit !"

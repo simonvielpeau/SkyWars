@@ -6,6 +6,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.world.PortalCreateEvent;
 
 import fr.simonviel.skywars.main;
@@ -56,6 +57,12 @@ public class GameListeners implements Listener {
 		e.setCancelled(true);
 	}
 	
+	@EventHandler
+	public void onDrop(PlayerDropItemEvent e) {
+		if(!stateManager.isState(GameState.GAME)) {
+			e.setCancelled(true);
+		}
+	}
 	
 	
 }

@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
 import fr.simonviel.skywars.main;
+import fr.simonviel.skywars.kits.KitMenu;
 
 public class EventsManager {
 	
@@ -19,6 +20,7 @@ public class EventsManager {
 		pm.registerEvents(new SkyJoin(main), main);
 		pm.registerEvents(new GameListeners(main), main);
 		pm.registerEvents(new SkyDeath(main), main);
+		pm.registerEvents(new KitMenu(main), main);
 	}
 	
 	

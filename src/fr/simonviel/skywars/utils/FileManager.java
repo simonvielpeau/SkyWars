@@ -1,14 +1,16 @@
 package fr.simonviel.skywars.utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -18,12 +20,11 @@ import fr.simonviel.skywars.main;
 public class FileManager {
 
 	private main main;
-	private File messageFile;
-	private FileConfiguration messageYML;
+	private FileConfiguration skyMessageYML;
 	private File skyConfig;
 	private FileConfiguration skyConfigYML;
-	private File skyChests;
 	private FileConfiguration skyChestsYML;
+	private FileConfiguration skyKitsYML;
 	private Title title;
 	private String prefix;
 	
@@ -36,54 +37,101 @@ public class FileManager {
 		createMessagesFile();
 		createSkyConfigFile();
 		createSkyChestsFile();
-		prefix = messageYML.getString("messages.prefix").replace("&", "§");
+		createSkyKitsFile();
+		prefix = skyMessageYML.getString("messages.prefix").replace("&", "§");
 	}
 
 	private void createMessagesFile(){
-		messageFile = new File(main.getDataFolder(), "messages.yml");
-		if(!messageFile.exists()) {	
-			try (InputStream in = main.class.getClassLoader().getResourceAsStream("messages.yml")) {
-				Files.copy(in, this.messageFile.toPath());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		Path messageFile = main.getDataFolder().toPath().resolve("SkyMessages.yml");
+		if (!Files.exists(messageFile)) {
+            main.saveResource("SkyMessages.yml", true);
+        }
+		skyMessageYML = new YamlConfiguration();
+        try {
+        	skyMessageYML.load(messageFile.toFile());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		setMessages(YamlConfiguration.loadConfiguration(this.messageFile));
 	}
 	
 	private void createSkyConfigFile() {
-		skyConfig = new File(main.getDataFolder(), "SkyConfig.yml");
-		if(!skyConfig.exists()) {
-			try (InputStream in = this.getClass().getClassLoader().getResourceAsStream("SkyConfig.yml")) {
-				Files.copy(in, this.skyConfig.toPath());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		Path configFile = main.getDataFolder().toPath().resolve("SkyConfig.yml");
+		if (!Files.exists(configFile)) {
+            main.saveResource("SkyConfig.yml", true);
+        }
+        skyConfigYML = new YamlConfiguration();
+    
+		skyConfig = configFile.toFile();
+        try {
+        	skyConfigYML.load(configFile.toFile());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		skyConfigYML = YamlConfiguration.loadConfiguration(this.skyConfig);
 	}
 	
 	private void createSkyChestsFile() {
-		skyChests = new File(main.getDataFolder(), "SkyChests.yml");
-		if(!skyChests.exists()) {
-			try (InputStream in = this.getClass().getClassLoader().getResourceAsStream("SkyChests.yml")) {
-				Files.copy(in, this.skyChests.toPath());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		Path chestFile = main.getDataFolder().toPath().resolve("SkyChests.yml");
+		if (!Files.exists(chestFile)) {
+            main.saveResource("SkyChests.yml", true);
+        }
+        skyChestsYML = new YamlConfiguration();
+        try {
+        	skyChestsYML.load(chestFile.toFile());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		skyChestsYML = YamlConfiguration.loadConfiguration(this.skyChests);
+	}
+	
+	private void createSkyKitsFile() {
+		Path kitFile = main.getDataFolder().toPath().resolve("SkyKits.yml");
+		if (!Files.exists(kitFile)) {
+            main.saveResource("SkyKits.yml", true);
+        }
+        skyKitsYML = new YamlConfiguration();
+        try {
+			skyKitsYML.load(kitFile.toFile());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
 	public String getLine(String path) {
-		String string = messageYML.getString(path);
+		String string = skyMessageYML.getString(path);
 		string = string.replace("&", "§");
 		
 		return prefix + " " + string;
 	}
 	public String getLine(String path, Player player, Player killer) {
-		String string = messageYML.getString(path);
+		String string = skyMessageYML.getString(path);
 		string = string.replace("&", "§");
 		string = string.replace("%player%", player.getName());
 		if(killer != null) {
@@ -93,7 +141,7 @@ public class FileManager {
 	}
 	public String getLine(String path, Player player, int timer, int size) {
 		
-		String string = messageYML.getString(path);
+		String string = skyMessageYML.getString(path);
 		string = string.replace("&", "§");
 	
 		if(player != null) {
@@ -112,7 +160,7 @@ public class FileManager {
 	}
 	public List<String> getStringList(String path){
 		List<String> list = new ArrayList<>();
-		for(String strings : messageYML.getStringList(path)) {
+		for(String strings : skyMessageYML.getStringList(path)) {
 			strings = strings.replace("&", "§");
 			list.add(strings);
 		}
@@ -121,40 +169,22 @@ public class FileManager {
 	
 	public List<String> getStringList(String path, Player player){
 		List<String> list = new ArrayList<>();
-		for(String strings : messageYML.getStringList(path)) {
+		for(String strings : skyMessageYML.getStringList(path)) {
 			strings = strings.replace("&", "§");
 			strings = strings.replace("%player%", player.getName());
 			list.add(strings);
 		}
 		return list;
 	}
-	
 
-	public void reloadMessages(){ setMessages(YamlConfiguration.loadConfiguration(this.messageFile)); }
-	
-	public void setMessages(FileConfiguration messages) {
-		this.messageYML = messages;
-	}
-	
-	public FileConfiguration getMessageYML() {
-		return messageYML;
-	}
-	
-	public FileConfiguration getSkyConfigYML() {
-		return skyConfigYML;
-	}
-	
-	public File getSkyConfig() {
-		return skyConfig;
-	}
 	public String[] getTitle(String path) {
-		String string = messageYML.getString(path).replace("&", "§");
+		String string = skyMessageYML.getString(path).replace("&", "§");
 		String[] array = string.split(";");
 		if(array.length != 2) return null;
 		return array;
 	}
 	public String[] getTitle(String path, Player player, int timer) {
-		String string = messageYML.getString(path).replace("&", "§");
+		String string = skyMessageYML.getString(path).replace("&", "§");
 		if(player != null) string = string.replace("%player%", player.getName());
 		if(timer != -1) string = string.replace("%timer%", timer+"");
 		String[] array = string.split(";");
@@ -163,7 +193,7 @@ public class FileManager {
 	}
 	
 	public void sendTitle(Player cible, String path, int timer) {
-		String string = messageYML.getString(path).replace("&", "§");
+		String string = skyMessageYML.getString(path).replace("&", "§");
 		if(cible == null) return;
 		if(timer != -1) string = string.replace("%timer%", timer+"");
 		String[] array = string.split(";");
@@ -235,13 +265,28 @@ public class FileManager {
 		return cageList;
 	}
 
+
+	public FileConfiguration getMessageYML() {
+		return skyMessageYML;
+	}
+	
+	public FileConfiguration getSkyConfigYML() {
+		return skyConfigYML;
+	}
+	
+	public File getSkyConfig() {
+		return skyConfig;
+	}
+	
 	public FileConfiguration getSkyChestsYML() {
 		return skyChestsYML;
 	}
 	
-	public File getSkyChests() {
-		return skyChests;
+	
+	public FileConfiguration getSkyKitsYML() {
+		return skyKitsYML;
 	}
+	
 	
 	
 }

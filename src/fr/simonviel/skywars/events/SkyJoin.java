@@ -36,8 +36,6 @@ public class SkyJoin implements Listener{
 		e.setJoinMessage(null);
 		
 		player.teleport(fileManager.getConfigLoc("hub"));
-		player.getInventory().clear();
-		player.updateInventory();
 		player.setFoodLevel(20);
 		player.setHealth(player.getMaxHealth());
 		player.setExp((float) 0.0);

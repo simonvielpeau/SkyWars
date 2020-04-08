@@ -16,6 +16,7 @@ import fr.simonviel.skywars.events.EventsManager;
 import fr.simonviel.skywars.game.GameState;
 import fr.simonviel.skywars.game.GameStateManager;
 import fr.simonviel.skywars.game.SkyWin;
+import fr.simonviel.skywars.kits.KitManager;
 import fr.simonviel.skywars.utils.CageLocations;
 import fr.simonviel.skywars.utils.CageManager;
 import fr.simonviel.skywars.utils.FileManager;
@@ -30,6 +31,7 @@ public class main extends JavaPlugin{
 	private Title sendTitles;
 	private ChestRefill chestRefill;
 	private ItemsRandom itemsRandom;
+	private KitManager kitManager;
 	private int beforeMaxSize = 0;
 	private ArrayList<Player> players = new ArrayList<>();
 	private SkyWin skyWin;
@@ -37,6 +39,7 @@ public class main extends JavaPlugin{
 	@Override
 	public void onEnable() {
 		super.onEnable();
+		
 		sendTitles = new Title();
 		fileManager = new FileManager(this);
 		stateManager = new GameStateManager();
@@ -46,26 +49,9 @@ public class main extends JavaPlugin{
 		itemsRandom = new ItemsRandom(this);
 		chestRefill = new ChestRefill(this);
 		skyWin = new SkyWin(this);
-		
-		if(!cageLocations.enoughMinimumCages()) {
-			System.out.println("Le nombre de cage est inférieur au nombre de joueurs minimum pour lancer le jeu");
-			System.out.println("Nombre de cage : "+cageLocations.getCages().size());
-			System.out.println("Nombre de joueur minimum : "+fileManager.getSkyConfigYML().getInt("params.wait.size-to-begin"));
-			Bukkit.shutdown();
-		}
-		if(!cageLocations.enoughMaximumCages()) {
-			System.out.println("Le nombre de joueur maximum est supérieur au nombre de cages disponibles");
-			System.out.println("Nombre de cage : "+cageLocations.getCages().size());
-			System.out.println("Nombre de joueur maximum : "+fileManager.getSkyConfigYML().getInt("params.wait.max-size"));
-			System.out.println("Donc, le nouveau nombre de joueur maximum DURANT CETTE PARTIE passe à "+cageLocations.getCages().size());
-			beforeMaxSize = fileManager.getSkyConfigYML().getInt("params.wait.max-size");
-			fileManager.getSkyConfigYML().set("params.wait.max-size", cageLocations.getCages().size());
-			try {
-				fileManager.getSkyConfigYML().save(fileManager.getSkyConfig());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		kitManager = new KitManager(this);
+		kitManager.loadKits();
+		checkCages();
 
 		getCommand("set").setExecutor(new CommandSet(this));
 		new EventsManager(this).registerEvents();
@@ -98,6 +84,28 @@ public class main extends JavaPlugin{
         world.setWeatherDuration(0);
         world.setStorm(false);
         world.setThundering(false);
+	}
+	
+	private void checkCages() {
+		if(!cageLocations.enoughMinimumCages()) {
+			System.out.println("Le nombre de cage est inférieur au nombre de joueurs minimum pour lancer le jeu");
+			System.out.println("Nombre de cage : "+cageLocations.getCages().size());
+			System.out.println("Nombre de joueur minimum : "+fileManager.getSkyConfigYML().getInt("params.wait.size-to-begin"));
+			Bukkit.shutdown();
+		}
+		if(!cageLocations.enoughMaximumCages()) {
+			System.out.println("Le nombre de joueur maximum est supérieur au nombre de cages disponibles");
+			System.out.println("Nombre de cage : "+cageLocations.getCages().size());
+			System.out.println("Nombre de joueur maximum : "+fileManager.getSkyConfigYML().getInt("params.wait.max-size"));
+			System.out.println("Donc, le nouveau nombre de joueur maximum DURANT CETTE PARTIE passe à "+cageLocations.getCages().size());
+			beforeMaxSize = fileManager.getSkyConfigYML().getInt("params.wait.max-size");
+			fileManager.getSkyConfigYML().set("params.wait.max-size", cageLocations.getCages().size());
+			try {
+				fileManager.getSkyConfigYML().save(fileManager.getSkyConfig());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public ArrayList<Player> getPlayers() {
@@ -137,7 +145,9 @@ public class main extends JavaPlugin{
 	public void checkWin() {
 		skyWin.checkWin();
 	}
-
 	
+	public KitManager getKitManager() {
+		return kitManager;
+	}
 	
 }
