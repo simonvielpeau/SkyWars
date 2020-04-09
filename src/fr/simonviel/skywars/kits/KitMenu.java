@@ -17,16 +17,19 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.simonviel.skywars.main;
+import fr.simonviel.skywars.utils.FileManager;
 
 public class KitMenu implements Listener{
 	
 	private Inventory inv;
+	private FileManager fileManager;
 	private KitManager kitManager;
 	private FileConfiguration skyKitsYML;
 	
 	public KitMenu(main main) {
 		kitManager = main.getKitManager();
 		skyKitsYML = main.getFileManager().getSkyKitsYML();
+		fileManager = main.getFileManager();
 		
 		inv = generateInv();
 	}
@@ -39,7 +42,7 @@ public class KitMenu implements Listener{
 		}
 		
 		return inv;
-	}
+	} 
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
@@ -82,12 +85,57 @@ public class KitMenu implements Listener{
 		Player p = (Player) e.getWhoClicked();
 		Inventory inv = e.getInventory();
 		ItemStack current = e.getCurrentItem();
-		
-		if(inv.getName() == skyKitsYML.getString("inventory.item.name").replace("&", "§")) {
+		if(inv.getName().equals(skyKitsYML.getString("inventory.name").replace("&", "§"))) {
 			if(current == null) return;
 			e.setCancelled(true);
+			p.updateInventory();
 			p.closeInventory();
+			
+			// check if he has already a kit, if it's the case = retire the kit
+			for(Kit kit : kitManager.getKits()) {
+				if(kit.containsPlayer(p)) {
+					if(current.getType() == kit.getTotem().getType()) {
+						String kitname = kit.getTotem().getItemMeta().getDisplayName();
+						p.sendMessage(fileManager.getLine("messages.wait.kits.already-have").replace("%kitname%", kitname));
+						return;
+					}
+					kit.removePlayer(p);
+				}
+			}
+		
+			// add the kit
+			for(Kit kit : kitManager.getKits()) {
+				if(current.getType() == kit.getTotem().getType()) {
+					try {
+						kit.addPlayer(p);
+						String kitname = kit.getTotem().getItemMeta().getDisplayName();
+						p.sendMessage(fileManager.getLine("messages.wait.kits.ok").replace("%kitname%", kitname));
+					} catch (Exception e1) {
+						if(e1.getMessage().equalsIgnoreCase("permissions")) {
+							p.sendMessage(fileManager.getLine("messages.wait.kits.no-perm").replace("%grade%", kit.getPermission().split("\\.")[1]));
+							
+							p.sendMessage("§c-----§emais, car phase de test§c-----");
+							kit.addTESTPlayer(p);
+							String kitname = kit.getTotem().getItemMeta().getDisplayName();
+							p.sendMessage(fileManager.getLine("messages.wait.kits.ok").replace("%kitname%", kitname));
+						}
+						else if(e1.getMessage().equalsIgnoreCase("coins")) {
+							String message = fileManager.getLine("messages.wait.kits.no-coins").replace("%price%", kit.getCost()+"");
+							message = message.replace("%balance%", "NO COINS SYSTEM");
+							p.sendMessage(message);
+							
+							p.sendMessage("§c-----§emais, car phase de test§c-----");
+							kit.addTESTPlayer(p);
+							String kitname = kit.getTotem().getItemMeta().getDisplayName();
+							p.sendMessage(fileManager.getLine("messages.wait.kits.ok").replace("%kitname%", kitname));
+						}
+					}
+					break;
+				}
+			}
 		}
+		
+		
 		
 	}
 

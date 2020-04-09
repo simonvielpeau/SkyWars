@@ -36,6 +36,14 @@ public class AutoStart extends BukkitRunnable{
 			}
 		}
 		
+		if(timer == 30 || timer==15 ||timer==10||timer==5||timer==4) {
+			for(Player pls : main.getPlayers()) {
+				if(main.getKitManager().getPlayerKit(pls) == null) {
+					pls.sendMessage(fileManager.getLine("messages.wait.kits.choose-one"));
+				}
+			}
+		}
+		
 		if(main.getPlayers().size() < main.getFileManager().getSkyConfigYML().getInt("params.wait.size-to-begin")) {
 			for(Player players : main.getPlayers()) {
 				players.sendMessage(fileManager.getLine("messages.wait.stop-timer", null, -1, main.getPlayers().size()));

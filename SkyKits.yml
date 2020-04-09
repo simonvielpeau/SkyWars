@@ -15,12 +15,14 @@ kits:
     totem: STICK
     totem-name: "&eSticker"
     totem-lore: 
-    - "&4Knockback 3"
+    - "&6Knockback 3"
     items:
       STICK:
         enchantments: 
         - KNOCKBACK:3
-        name: "&bLe baton magique"
+        item-flags:
+        - HIDE_ENCHANTS
+        name: "&bMagicien"
         lore: 
           - "&2Il pousse ton adversaire !"
           - "&4Alors utilise-le pour le faire tomber."
@@ -35,26 +37,36 @@ kits:
     - "&6vie :"
     - "&bQue demandez de plus ?"
     items:
-      POTION:
+      POTION-INVISIBILITY:
         amount: 2
-        effect: INVISIBILITY
-      POTION:
+        level: 1
+        duration: 1
+        name: "&3Potion d'invisibilité"
+      POTION-SPEED:
         amount: 2
-        effect: SPEED
-      SPLASH_POTION:
+        level: 1
+        duration: 3
+        name: "&3Potion de vitesse"
+      SPLASH_POTION-POISON:
         amount: 2
-        effect: POISON
-      POTION:
+        level: 1
+        duration: 0.75
+        name: "&2Potion jetable de Poison"
+      POTION-REGENERATION:
         amount: 3
-        effect: HEAL
+        level: 1
+        duration: 0.75
+        name: "&dPotion de regéneration"
   guerrier:
-    permission: server.donor
+    permission: permissions.VIP
     totem: DIAMOND_SWORD
     totem-name: "&eGuerrier"
     totem-lore: 
     - "&bOUF"
     items:
       DIAMOND_SWORD:
+        enchantments:
+        - DAMAGE_ALL:2
 #     chestplate:
 #       type: LEATHER_CHESTPLATE
 #       armor-color: CC7700
@@ -69,11 +81,13 @@ kits:
 #     boots: {type: DIAMOND_BOOTS, enchantments: {PROTECTION_FALL: 2}}
 inventory:
   name: "&eKits"
-  default-totem-lore:
-  - "&e------------"
-  - "&bPrix : &c%cost%"
-  - "%booleanpermission% &cNécessite la permission &b%permission%"
-  - "&e------------"
+  totem-lore:
+    default:
+      - "&e------------"
+      - "&bPrix : &e%cost%"
+      - "&bNécessite le grade &e%grade%&b."
+      - "&e------------"
+    free-item: "&aGratuit"
   item:
     material: COMPASS
     name: "&bKits"

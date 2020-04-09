@@ -7,6 +7,12 @@ messages:
     stop-timer: "&cIl n'y a plus assez de joueurs pour commencer. &7<&c%size%&7/&c%maxsize%&7>"
     already-begun: "&cDésolé ! Le jeu a déjà commencé."
     toomuch-players: "&cDésolé ! Il y a déjà trop de joueurs connectés."
+    kits:
+      already-have: "&cVous avez déjà choisi le kit %kitname% &c!"
+      choose-one: "&aChoisis un kit pour ne pas être désavantagé !"
+      no-perm: "&cTu n'as pas le grade &e%grade% &c!"
+      no-coins: "&cTu n'as pas assez d'argent pour prendre ce kit. Il coûte &e%price%&c alors que tu as &e%balance% &c!"
+      ok: "&bVous venez de choisir le kit %kitname% &b!"
   game:
     timer-disparition-cage: "&6Disparition des cages dans &c%timer% &6secondes"
     death:

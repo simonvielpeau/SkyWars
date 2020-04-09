@@ -25,6 +25,7 @@ public class PreGameManager extends BukkitRunnable {
 		if(timer == fileManager.getSkyConfigYML().getInt("params.game.chrono-cage")) {
 			for(Player player : main.getPlayers()) {
 				player.sendMessage(fileManager.getLine("messages.game.timer-disparition-cage", null, timer, -1));
+				main.getKitManager().giveKit(player);
 			}
 		}
 	
