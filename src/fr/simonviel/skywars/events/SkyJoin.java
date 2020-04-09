@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.potion.PotionEffect;
 
 import fr.simonviel.skywars.main;
 import fr.simonviel.skywars.game.GameState;
@@ -39,6 +40,8 @@ public class SkyJoin implements Listener{
 		player.setFoodLevel(20);
 		player.setHealth(player.getMaxHealth());
 		player.setExp((float) 0.0);
+		for (PotionEffect effect : player.getActivePotionEffects())
+	        player.removePotionEffect(effect.getType());
 		if(!canHeJoin(player)) return;
 		
 		if(!main.getPlayers().contains(player)) {

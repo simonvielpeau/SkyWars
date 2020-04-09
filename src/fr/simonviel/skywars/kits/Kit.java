@@ -170,21 +170,17 @@ public class Kit {
 	}
 	
 	public void addPlayer(Player player) throws Exception{
-		if(permission != null && player.hasPermission(permission)) {
+//		if(permission != null && player.hasPermission(permission)) {
 			players.add(player);
-			return;
-		}
+//			return;
+//		}
 		// quand je l'installerai, déjà cc, et surtout -> il est possible de ne pas avoir la perm ET de pas avoir assez d'argent ! 
-		else if(permission != null) {
-			throw KitExceptions("permissions");
-		}
-		throw KitExceptions("coins");
+//		else if(permission != null) {
+//			throw KitExceptions("permissions");
+//		}
+//		throw KitExceptions("coins");
 	}
 	
-	// en attendant installation coins + perm --> serveur
-	public void addTESTPlayer(Player player){
-		players.add(player);
-	}
 	
 	public Exception KitExceptions(String string) {
 		return new Exception(string);

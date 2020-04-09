@@ -113,21 +113,11 @@ public class KitMenu implements Listener{
 					} catch (Exception e1) {
 						if(e1.getMessage().equalsIgnoreCase("permissions")) {
 							p.sendMessage(fileManager.getLine("messages.wait.kits.no-perm").replace("%grade%", kit.getPermission().split("\\.")[1]));
-							
-							p.sendMessage("§c-----§emais, car phase de test§c-----");
-							kit.addTESTPlayer(p);
-							String kitname = kit.getTotem().getItemMeta().getDisplayName();
-							p.sendMessage(fileManager.getLine("messages.wait.kits.ok").replace("%kitname%", kitname));
 						}
 						else if(e1.getMessage().equalsIgnoreCase("coins")) {
 							String message = fileManager.getLine("messages.wait.kits.no-coins").replace("%price%", kit.getCost()+"");
 							message = message.replace("%balance%", "NO COINS SYSTEM");
 							p.sendMessage(message);
-							
-							p.sendMessage("§c-----§emais, car phase de test§c-----");
-							kit.addTESTPlayer(p);
-							String kitname = kit.getTotem().getItemMeta().getDisplayName();
-							p.sendMessage(fileManager.getLine("messages.wait.kits.ok").replace("%kitname%", kitname));
 						}
 					}
 					break;
