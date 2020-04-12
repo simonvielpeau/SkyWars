@@ -16,32 +16,31 @@ public class SkyWin {
 	public void checkWin() {
 		
 		if(Bukkit.getOnlinePlayers().size() == 0 ||main.getPlayers().size() == 0) {
+			main.getStateManager().setState(GameState.FINISH);
 			Bukkit.shutdown();
 			return;
 		}
 		
 		
 		if(main.getPlayers().size() == 1) {
-			main.getStateManager().setState(GameState.FINISH);
-			
 			Player winner = main.getPlayers().get(0);
-			
+			main.getStateManager().setState(GameState.PREFINISH);
 			for(String message : main.getFileManager().getStringList("messages.finished.winner", winner)) {
-				
 				Bukkit.broadcastMessage(message);
-				
 			}
 			
 			main.getFileManager().sendTitle(winner, "titles.finished.youwon", -1);
 		
+			int timerBeforeEndMessage = 3;
 			int timer = main.getFileManager().getSkyConfigYML().getInt("params.finished.timer");
+			
 			
 			Bukkit.getScheduler().runTaskLater(main, new Runnable() {
 				@Override
 				public void run() {
 					Bukkit.broadcastMessage(main.getFileManager().getLine("messages.finished.timer-message", null, timer, -1));
 				}
-			}, 3*20);
+			}, timerBeforeEndMessage*20);
 			
 			Bukkit.getScheduler().runTaskLater(main, new Runnable() {
 				@Override
@@ -49,9 +48,10 @@ public class SkyWin {
 					for(Player pls : Bukkit.getOnlinePlayers()) {
 						pls.kickPlayer(main.getFileManager().getLine("messages.finished.kick"));
 					}
+					main.getStateManager().setState(GameState.FINISH);
 					Bukkit.shutdown();
 				}
-			}, 20*timer);
+			}, 20*(timer+timerBeforeEndMessage));
 					
 		}
 		

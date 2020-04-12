@@ -1,8 +1,10 @@
 package fr.simonviel.skywars;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -72,7 +74,36 @@ public class main extends JavaPlugin{
 				e.printStackTrace();
 			}
 		}
+
+		if(stateManager.isState(GameState.FINISH)) {
+			File exWorld = new File("world");
+			deleteDirectory(exWorld);
+			
+			
+			File newWorld = new File("copyskywars");
+			
+			try {
+				FileUtils.copyDirectory(newWorld, new File(newWorld.getParent(), "world"));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
+		}
 		super.onDisable();
+	}
+	
+	public boolean deleteDirectory(File path) {
+		if (path.exists()) {
+	        File[] files = path.listFiles();
+	        for (int i = 0; i < files.length; i++) {
+	            if (files[i].isDirectory()) {
+	                deleteDirectory(files[i]);
+	            } else {
+	                files[i].delete();
+	            }
+	        }
+	    }
+		return (path.delete());
 	}
 	
 	public void meteo() {

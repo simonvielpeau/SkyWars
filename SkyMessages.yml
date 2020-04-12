@@ -17,10 +17,10 @@ messages:
     timer-disparition-cage: "&6Disparition des cages dans &c%timer% &6secondes"
     death:
       pvp: "&e%player%&c a été tué par &e%killer% &c!"
+      alone: "&e%player%&c est mort !"
       chute:
         alone: "&e%player%&c est mort en tombant !"
-        killed: "&e%player%&c est mort en ayant été poussé par &e%killer% &c!"
-      alone: "&e%player%&c est mort !"
+        pvp: "&e%player%&c est mort en ayant été poussé par &e%killer% &c!"
   finished:
     winner:
     - "&7----------------- &aFin de la partie&7 -----------------"

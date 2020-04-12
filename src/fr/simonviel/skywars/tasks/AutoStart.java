@@ -36,7 +36,7 @@ public class AutoStart extends BukkitRunnable{
 			}
 		}
 		
-		if(timer == 30 || timer==15 ||timer==10||timer==5) {
+		if(timer == 30 || timer==15||timer==5) {
 			for(Player pls : main.getPlayers()) {
 				if(main.getKitManager().getPlayerKit(pls) == null) {
 					pls.sendMessage(fileManager.getLine("messages.wait.kits.choose-one"));

@@ -64,10 +64,9 @@ public class SkyJoin implements Listener{
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
 		Player player = e.getPlayer();
-		
+		e.setQuitMessage(null);
 		if(main.getPlayers().contains(player)) {
 			main.getPlayers().remove(player);
-			e.setQuitMessage(null);
 			Bukkit.broadcastMessage(fileManager.getLine("messages.wait.quit", player, -1, main.getPlayers().size()));
 		}
 		

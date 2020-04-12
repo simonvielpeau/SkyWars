@@ -53,18 +53,13 @@ public class SkyDeath implements Listener{
 		}
 		
 		fileManager.sendTitle(player, "titles.game.death", -1);
-		death(player);
+
 		if(damager != null) {
-			for(Player pls : main.getPlayers()) {
-				pls.sendMessage(fileManager.getLine("messages.game.death.pvp", player, damager));
-			}
+			death(player,"messages.game.death.pvp",damager);
 			return;
-				
 		}
 		
-		for(Player pls : main.getPlayers()) {
-			pls.sendMessage(fileManager.getLine("messages.game.death.alone", player, damager));
-		}
+		death(player,"messages.game.death.alone" ,damager);
 	}
 	
 	@EventHandler
@@ -76,23 +71,18 @@ public class SkyDeath implements Listener{
 		Player p = (Player) e.getEntity();
 		
 		if(e.getCause() == DamageCause.FALL) {
-			
 			if(e.getDamage() >= p.getHealth()) {
 			
 				e.setCancelled(true);
 				fileManager.sendTitle(p, "titles.game.death", -1);
-				death(p);
 				Player killer = p.getKiller();
 				if(killer != null) {
-					for(Player pls : main.getPlayers()) {
-						pls.sendMessage(fileManager.getLine("messages.game.death.chute.killed", p, killer));
-					}
+					death(p, "messages.game.death.chute.killed", killer);
 					return;
 						
 				}
-				for(Player pls : main.getPlayers()) {
-					pls.sendMessage(fileManager.getLine("messages.game.death.chute.alone", p, killer));
-				}
+
+				death(p, "messages.game.death.chute.alone", killer);
 			}
 		}
 	}
@@ -110,19 +100,14 @@ public class SkyDeath implements Listener{
 		
 		if(p.getLocation().getY() <= fileManager.getSkyChestsYML().getInt("params.game.y-fall")) {
 			fileManager.sendTitle(p, "titles.game.death", -1);
-			death(p);
 			Player killer = p.getKiller();
 			
 			if(killer != null) {
-				for(Player pls : main.getPlayers()) {
-					pls.sendMessage(fileManager.getLine("messages.game.death.chute.killed", p, killer));
-				}
+				death(p, "messages.game.death.chute.killed", killer);
 				return;
 			}
-			for(Player pls : main.getPlayers()) {
-				pls.sendMessage(fileManager.getLine("messages.game.death.chute.alone", p, null));
-			}
-			
+
+			death(p, "messages.game.death.chute.alone", killer);
 		}
 	}
 	
@@ -133,7 +118,6 @@ public class SkyDeath implements Listener{
 	public void onDeath(PlayerDeathEvent event) {
 		if(!main.getStateManager().isState(GameState.GAME)) return;
 		final Player p = event.getEntity();
-		death(p);
 		final Player killer = p.getKiller();
 		event.setDeathMessage(null);
 		Bukkit.getScheduler().runTaskLater(main, new Runnable() {
@@ -146,32 +130,26 @@ public class SkyDeath implements Listener{
 					
 				
 				if(killer != null) {
-					for(Player pls : main.getPlayers()) {
-						pls.sendMessage(fileManager.getLine("messages.game.death.pvp", p, killer ));
-					}
+					death(p, "messages.game.death.pvp", killer);
 					return;
 				}
-				
-				for(Player pls : main.getPlayers()) {
-					pls.sendMessage(fileManager.getLine("messages.game.death.alone", p, null));
-				}
-				
+
+				death(p, "messages.game.death.alone", killer);
 			}		
 			
 		}, 5L);
 	}
 	
-	public void death(Player player) {
+	public void death(Player player, String path, Player killer) {
+		
+		for(Player pls : main.getPlayers()) {
+			pls.sendMessage(fileManager.getLine(path, player, killer));
+		}
+		
 		player.teleport(fileManager.getConfigLoc("hub"));
 		player.setGameMode(GameMode.SPECTATOR);
 		main.getPlayers().remove(player);
 		main.checkWin();
 	}
-	
-
-	
-
-	
-	
 	
 }
