@@ -39,9 +39,20 @@ public class PreGameManager extends BukkitRunnable {
 				fileManager.sendTitle(player, "titles.game.disparition-cage", -1);
 				player.setLevel(0);
 			}
-			main.getStateManager().setState(GameState.GAME);
 			main.getCageManager().destroyAllCages();
-			
+			new BukkitRunnable() {
+
+				int timer = 5;
+				public void run() {
+					timer--;
+					if(timer == 0) {
+						main.getStateManager().setState(GameState.GAME);
+						cancel();
+					}
+				}
+				
+				
+			}.runTaskTimer(main, 0, 20);
 			GameManager gameManager = new GameManager(main);
 			gameManager.runTaskTimer(main, 0, 20);
 			
