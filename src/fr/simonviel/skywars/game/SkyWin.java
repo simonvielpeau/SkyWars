@@ -15,8 +15,9 @@ public class SkyWin {
 
 	public void checkWin() {
 		
-		if(Bukkit.getOnlinePlayers().size() == 0 ||main.getPlayers().size() == 0) {
+		if(Bukkit.getOnlinePlayers().size() == 0 || main.getPlayers().size() == 0) {
 			main.getStateManager().setState(GameState.FINISH);
+			//Bukkit.spigot().restart();
 			Bukkit.shutdown();
 			return;
 		}
@@ -49,6 +50,7 @@ public class SkyWin {
 						pls.kickPlayer(main.getFileManager().getLine("messages.finished.kick"));
 					}
 					main.getStateManager().setState(GameState.FINISH);
+					//Bukkit.spigot().restart();;
 					Bukkit.shutdown();
 				}
 			}, 20*(timer+timerBeforeEndMessage));
