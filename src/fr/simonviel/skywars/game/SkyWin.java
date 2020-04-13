@@ -8,6 +8,7 @@ import fr.simonviel.skywars.main;
 public class SkyWin {
 	
 	private main main;
+	private boolean taskAlreadyBegun;
 	
 	public SkyWin(main main) {
 		this.main = main;
@@ -16,6 +17,7 @@ public class SkyWin {
 	public void checkWin() {
 		
 		if(Bukkit.getOnlinePlayers().size() == 0 || main.getPlayers().size() == 0) {
+			if(taskAlreadyBegun) return;
 			main.getStateManager().setState(GameState.FINISH);
 			//Bukkit.spigot().restart();
 			Bukkit.shutdown();
@@ -24,8 +26,13 @@ public class SkyWin {
 		
 		
 		if(main.getPlayers().size() == 1) {
-			Player winner = main.getPlayers().get(0);
+			if(taskAlreadyBegun) return;
+			
+			taskAlreadyBegun = true;
 			main.getStateManager().setState(GameState.PREFINISH);
+			
+			Player winner = main.getPlayers().get(0);
+
 			for(String message : main.getFileManager().getStringList("messages.finished.winner", winner)) {
 				Bukkit.broadcastMessage(message);
 			}

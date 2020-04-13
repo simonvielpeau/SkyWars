@@ -2,4 +2,4 @@
 
 SkyWars
 ============
-Jeu codé par simonviel
+Jeu codé par simonviel, non finalisé mais déjà, je trouve, pas mal.

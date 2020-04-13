@@ -9,7 +9,7 @@ messages:
     toomuch-players: "&cDésolé ! Il y a déjà trop de joueurs connectés."
     kits:
       already-have: "&cVous avez déjà choisi le kit %kitname% &c!"
-      choose-one: "&aChoisis un kit pour ne pas être désavantagé !"
+      choose-one: "&bChoisissez un kit pour ne pas être désavantagé !"
       no-perm: "&cTu n'as pas le grade &e%grade% &c!"
       no-coins: "&cTu n'as pas assez d'argent pour prendre ce kit. Il coûte &e%price%&c alors que tu as &e%balance% &c!"
       ok: "&bVous venez de choisir le kit %kitname% &b!"
@@ -23,8 +23,10 @@ messages:
         pvp: "&e%player%&c est mort en ayant été poussé par &e%killer% &c!"
   finished:
     winner:
-    - "&7----------------- &aFin de la partie&7 -----------------"
-    - "&6[&eSkyWars&6] &eFélicitations à &b%player% &equi remporte cette partie !"
+    - "&b----------------------------------------------------"
+    - "&6[&eSkyWars&6 &6La partie est terminée !"
+    - "&6[&eSkyWars&6] &eFélicitations à &b%player% &equi gagne haut la main !"
+    - "&b----------------------------------------------------"
     kick: "La partie est finie. Fermeture du serveur..."
     timer-message: "&cFermeture du serveur dans &e%timer% secondes &c!"
   commands:

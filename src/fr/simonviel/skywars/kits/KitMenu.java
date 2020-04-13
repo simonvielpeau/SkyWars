@@ -35,7 +35,7 @@ public class KitMenu implements Listener{
 	}
 	
 	public Inventory generateInv() {
-		Inventory inv = Bukkit.createInventory(null, 27, skyKitsYML.getString("inventory.name").replace("&", "§"));
+		Inventory inv = Bukkit.createInventory(null, 9, skyKitsYML.getString("inventory.name").replace("&", "§"));
 		
 		for(Kit kit : kitManager.getKits()) {
 			inv.setItem(kit.getSlot(), kit.getTotem());
@@ -60,7 +60,7 @@ public class KitMenu implements Listener{
 		iM.setLore(lores);
 		i.setItemMeta(iM);
 		
-		p.getInventory().setItem(0, i);
+		p.getInventory().setItem(4, i);
 		p.updateInventory();
 	}
 	

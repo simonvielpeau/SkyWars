@@ -40,6 +40,7 @@ public class SkyJoin implements Listener{
 		player.setFoodLevel(20);
 		player.setHealth(player.getMaxHealth());
 		player.setExp((float) 0.0);
+		player.setLevel(0);
 		for (PotionEffect effect : player.getActivePotionEffects())
 	        player.removePotionEffect(effect.getType());
 		if(!canHeJoin(player)) return;
@@ -70,9 +71,7 @@ public class SkyJoin implements Listener{
 			Bukkit.broadcastMessage(fileManager.getLine("messages.wait.quit", player, -1, main.getPlayers().size()));
 		}
 		
-		if(!main.getStateManager().isState(GameState.LOBBY))main.checkWin();
-		
-		
+		if(!main.getStateManager().isState(GameState.LOBBY) && !main.getStateManager().isState(GameState.PREFINISH))main.checkWin();
 	}
 	
 	public boolean canHeJoin(Player player) {
